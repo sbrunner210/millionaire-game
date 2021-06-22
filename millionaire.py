@@ -9,7 +9,7 @@ level = 1
 #This sets up a money list
 global money
 money = ['$100','$200','$300','$500','$1,000','$2,000','$4,000','$8,000','$16,000','$32,000','$64,000','$125,000','$250,000','$500,000','$1,000,000']
-loser_money = 
+loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,000', '$1,000', '$32,000', '$32,000', '$32,000', '$32,000', '$32,000']
 
 # This is a sample function that we may be able to use to easily ask questions.
 def millionaire(level,question,A,B,C,D,correct_answer):
@@ -22,12 +22,12 @@ def millionaire(level,question,A,B,C,D,correct_answer):
   print(f"D. {D}")
   answer = input("What is your answer?")
   if answer == correct_answer:
-    print("CORRECT! You just earned ", money[level], ". If you walk away now, you'll leave with ", total_money, "but if you answer the next question incorrectly, you'll leave with ", loser_money, ".")
+    print("CORRECT! If you walk away now, you'll leave with ", money, " but if you answer the next question incorrectly, you'll leave with ", loser_money, ".")
   elif answer == "lifeline":
     help = input("Which lifeline would you like to use?")
     print(help)
   else:
-    print("YOU ARE WRONG!")
+    print("Ohh, too bad! You're leaving today with ", loser_money[level - 1])
 
 while True:
     index = level - 1
