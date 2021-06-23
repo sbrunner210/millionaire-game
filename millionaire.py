@@ -38,6 +38,7 @@ loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,0
 # This is a sample function that we may be able to use to easily ask questions.
 def millionaire(rank,question,incorrect_answers,correct_answer):
   #print(f"This is the level {level} question. For" {money[level-1]})
+  global level
   print('Question#', rank, "for", money[rank-1]) #ML edited original code to include the amount of money it is for.
   print(question)
   all_answers = copy.copy(incorrect_answers)
@@ -52,13 +53,13 @@ def millionaire(rank,question,incorrect_answers,correct_answer):
   answer = input("What is your answer?")
   if answers_dict[answer.lower().strip()] == index:
     print("CORRECT! If you walk away now, you'll leave with ", money[0], " but if you answer the next question incorrectly, you'll leave with ", loser_money[0], ".")
-    # level = level + 1
+    level = level + 1
   elif answer == "lifeline":
     help = input("Which lifeline would you like to use?")
     print(help)
   else:
     print("Ohh, too bad! You're leaving today with ", loser_money[0])
-    # level = 17
+    level = 17
     # breakpoint()
 
 
