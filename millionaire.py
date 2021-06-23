@@ -4,6 +4,7 @@
 #test_list = list(range(1,19))
 
 import random
+import copy
 
 level = 1
 
@@ -30,53 +31,57 @@ questions = {
   }
 
 #This sets up a money list
-global money
+# global money
 money = ['$0','$100','$200','$300','$500','$1,000','$2,000','$4,000','$8,000','$16,000','$32,000','$64,000','$125,000','$250,000','$500,000','$1,000,000']
 loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,000', '$1,000', '$32,000', '$32,000', '$32,000', '$32,000', '$32,000']
 
 # This is a sample function that we may be able to use to easily ask questions.
-def millionaire(level,question,incorrect_answers,correct_answer):
+def millionaire(rank,question,incorrect_answers,correct_answer):
   #print(f"This is the level {level} question. For" {money[level-1]})
-  print('Question#', level, "for", money[level-1]) #ML edited original code to include the amount of money it is for.
+  print('Question#', rank, "for", money[rank-1]) #ML edited original code to include the amount of money it is for.
   print(question)
-  incorrect_answers.append(correct_answer)
-  random.shuffle(incorrect_answers)
-  index = incorrect_answers.index(correct_answer)
-  print(f"A. {incorrect_answers[0]}")
-  print(f"B. {incorrect_answers[1]}")
-  print(f"C. {incorrect_answers[2]}")
-  print(f"D. {incorrect_answers[3]}")
+  all_answers = copy.copy(incorrect_answers)
+  all_answers.append(correct_answer)
+  random.shuffle(all_answers)
+  index = all_answers.index(correct_answer)
+  # breakpoint()
+  print(f"A. {all_answers[0]}")
+  print(f"B. {all_answers[1]}")
+  print(f"C. {all_answers[2]}")
+  print(f"D. {all_answers[3]}")
   answer = input("What is your answer?")
   if answers_dict[answer.lower().strip()] == index:
     print("CORRECT! If you walk away now, you'll leave with ", money[0], " but if you answer the next question incorrectly, you'll leave with ", loser_money[0], ".")
+    # level = level + 1
   elif answer == "lifeline":
     help = input("Which lifeline would you like to use?")
     print(help)
   else:
     print("Ohh, too bad! You're leaving today with ", loser_money[0])
+    # level = 17
+    # breakpoint()
 
 
-millionaire(1,questions["results"][0]["question"],questions["results"][0]["incorrect_answers"],questions["results"][0]["correct_answer"])
+# millionaire(1,questions["results"][0]["question"],questions["results"][0]["incorrect_answers"],questions["results"][0]["correct_answer"])
 
-# while True:
+while level <= 16:
     # index = level - 1
-    # print("-------------------------------------")
-    # print('Question#', level, "for", money[level])
-    # print(f"If you answer correctly, you'll win {money[level]}.") 
-    # print (f"But if you answer incorrectly, you'll leave with {loser_money[level-1]}.")
-    # print(f"If you walk away now without answering the question, you'll keep {money[level-1]}.")
-    # answer = input(f"This is a test for question {level}: [yes, no, lifeline]")
-    # print("-------------------------------------")
-    # if answer.lower().strip() == "yes":
-        # level = level + 1
-        # print(f"This was the right answer. Moving onto question {level}")
-    # elif answer.lower().strip() == "no":
-        # print("Wrong Answer. Sorry. Game Over.")
-        # break
-    # elif answer.lower().strip() == "lifeline":
-        # help = input("Choose a lifeline:")
-        # print(f"Your selected lifeline was: {help}")
-    # else:
-        # print("ERROR")
-        # break
+    print("-------------------------------------")
+    if level >= 1 and level <= 5:
+      print("EASY QUESTIONS PROMPT")
+    elif level >= 6 and level <= 10:
+      print("MEDIUM QUESTIONS PROMPT")
+    elif level >= 11 and level <= 15:
+      print("HARD QUESTIONS PROMPT")
+    elif level == 16:
+      print("CONGRATS")
+      break
 
+    print("-------------------------------------")
+    print('Question#', level, "for", money[level])
+    print(f"If you answer correctly, you'll win {money[level]}.") 
+    print (f"But if you answer incorrectly, you'll leave with {loser_money[level-1]}.")
+    print(f"If you walk away now without answering the question, you'll keep {money[level-1]}.")
+    # Millionaire Function duplicating the correct answer.
+    millionaire(level,questions["results"][0]["question"],questions["results"][0]["incorrect_answers"],questions["results"][0]["correct_answer"])
+    
