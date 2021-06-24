@@ -35,6 +35,12 @@ questions = {
 money = ['$0','$100','$200','$300','$500','$1,000','$2,000','$4,000','$8,000','$16,000','$32,000','$64,000','$125,000','$250,000','$500,000','$1,000,000']
 loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,000', '$1,000', '$32,000', '$32,000', '$32,000', '$32,000', '$32,000']
 
+# Variables to randomly select a question
+quest_length = len(questions["results"])
+quest_pool = [*range(quest_length)]
+
+# breakpoint()
+
 # This is a sample function that we may be able to use to easily ask questions.
 def millionaire(rank,question,incorrect_answers,correct_answer):
   #print(f"This is the level {level} question. For" {money[level-1]})
@@ -83,6 +89,6 @@ while level <= 16:
     print(f"If you answer correctly, you'll win {money[level]}.") 
     print (f"But if you answer incorrectly, you'll leave with {loser_money[level-1]}.")
     print(f"If you walk away now without answering the question, you'll keep {money[level-1]}.")
-    # Millionaire Function duplicating the correct answer.
-    millionaire(level,questions["results"][0]["question"],questions["results"][0]["incorrect_answers"],questions["results"][0]["correct_answer"])
+    quest_num = random.choice(quest_pool)
+    millionaire(level,questions["results"][quest_num]["question"],questions["results"][quest_num]["incorrect_answers"],questions["results"][quest_num]["correct_answer"])
     
