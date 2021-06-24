@@ -10,8 +10,8 @@ import requests
 
 # Global Variables
 level = 1
-money = ['$0','$100','$200','$300','$500','$1,000','$2,000','$4,000','$8,000','$16,000','$32,000','$64,000','$125,000','$250,000','$500,000','$1,000,000']
-loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,000', '$1,000', '$32,000', '$32,000', '$32,000', '$32,000', '$32,000']
+money = ['$0','$100','$200','$300','$500','$1,000','$2,000','$4,000','$8,000','$16,000','$32,000','$64,000','$125,000','$250,000','$500,000','$1,000,000','$1,000,000']
+loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,000', '$1,000', '$32,000', '$32,000', '$32,000', '$32,000', '$32,000','$32,000']
 
 # Answers dictionary to determine the correct answer.
 answers_dict = {
@@ -87,12 +87,13 @@ quest_pool = [*range(quest_length)]
 # breakpoint()
 
 # This is a sample function that we may be able to use to easily ask questions.
+# Rank is the input variable for the funciton. Level is the variable.
 def millionaire(rank,question,incorrect_answers,correct_answer):
   #print(f"This is the level {level} question. For" {money[level-1]})
   global level
   global money
   global loser_money
-  print('Question#', rank, "for", money[rank-1]) #ML edited original code to include the amount of money it is for.
+  print('Question#', rank, "for", money[rank]) #ML edited original code to include the amount of money it is for.
   print(question)
   all_answers = copy.copy(incorrect_answers)
   all_answers.append(correct_answer)
@@ -111,18 +112,15 @@ def millionaire(rank,question,incorrect_answers,correct_answer):
     help = input("Which lifeline would you like to use?")
     print(help)
   elif answers_dict[answer.lower().strip()] == index:
-    print("CORRECT! If you walk away now, you'll leave with ", money[rank-2], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank-1], ".")
+    print("CORRECT! If you walk away now, you'll leave with ", money[rank], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank], ".")
     level = level + 1
   else:
-    print("Ohh, too bad! You're leaving today with ", loser_money[rank-1])
+    print("the correct answer was", correct_answer)
+    print("Ohh, too bad! You're leaving today with ", loser_money[rank])
     level = 17
     # breakpoint()
 
-
-# millionaire(1,questions["results"][0]["question"],questions["results"][0]["incorrect_answers"],questions["results"][0]["correct_answer"])
-
 while level <= 16:
-    # index = level - 1
     print("-------------------------------------")
     if level >= 1 and level <= 5:
       print("EASY QUESTIONS PROMPT")
@@ -136,14 +134,11 @@ while level <= 16:
     elif level == 16:
       print("CONGRATS")
       break
-
     print("-------------------------------------")
-    print('Question#', level, "for", money[level])
-    print(f"If you answer correctly, you'll win {money[level]}.") 
-    print (f"But if you answer incorrectly, you'll leave with {loser_money[level-1]}.")
-    print(f"If you walk away now without answering the question, you'll keep {money[level-1]}.")
-    quest_num = random.choice(quest_pool)
+    progress = 0
     # Currently, the loop is eliminating questions from multiple pools. Needs to be fixed.
-    millionaire(level,difficulty["results"][quest_num]["question"],difficulty["results"][quest_num]["incorrect_answers"],difficulty["results"][quest_num]["correct_answer"])
-    quest_pool.remove(quest_num)
+    millionaire(level,difficulty["results"][progress]["question"],difficulty["results"][progress]["incorrect_answers"],difficulty["results"][progress]["correct_answer"])
+    progress = progress + 1
+    if progress > 4:
+      progres = 0
     
