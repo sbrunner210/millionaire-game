@@ -91,4 +91,5 @@ while level <= 16:
     print(f"If you walk away now without answering the question, you'll keep {money[level-1]}.")
     quest_num = random.choice(quest_pool)
     millionaire(level,questions["results"][quest_num]["question"],questions["results"][quest_num]["incorrect_answers"],questions["results"][quest_num]["correct_answer"])
+    quest_pool.remove(quest_num)
     
