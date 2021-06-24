@@ -90,6 +90,8 @@ quest_pool = [*range(quest_length)]
 def millionaire(rank,question,incorrect_answers,correct_answer):
   #print(f"This is the level {level} question. For" {money[level-1]})
   global level
+  global money
+  global loser_money
   print('Question#', rank, "for", money[rank-1]) #ML edited original code to include the amount of money it is for.
   print(question)
   all_answers = copy.copy(incorrect_answers)
@@ -102,14 +104,17 @@ def millionaire(rank,question,incorrect_answers,correct_answer):
   print(f"C. {all_answers[2]}")
   print(f"D. {all_answers[3]}")
   answer = input("What is your answer?")
-  if answers_dict[answer.lower().strip()] == index:
-    print("CORRECT! If you walk away now, you'll leave with ", money[0], " but if you answer the next question incorrectly, you'll leave with ", loser_money[0], ".")
-    level = level + 1
+  if answer.lower().strip() == "walk":
+    print("You are walking away with ", money[rank-1],". Thank you for playing! Enjoy your fake money!")
+    level = 17
   elif answer == "lifeline":
     help = input("Which lifeline would you like to use?")
     print(help)
+  elif answers_dict[answer.lower().strip()] == index:
+    print("CORRECT! If you walk away now, you'll leave with ", money[rank-2], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank-1], ".")
+    level = level + 1
   else:
-    print("Ohh, too bad! You're leaving today with ", loser_money[0])
+    print("Ohh, too bad! You're leaving today with ", loser_money[rank-1])
     level = 17
     # breakpoint()
 
