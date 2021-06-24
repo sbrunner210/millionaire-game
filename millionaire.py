@@ -22,9 +22,9 @@ answers_dict = {
 }
 
 # Importing questions from API
-easy_url = "https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple"
-med_url = "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple"
-hard_url = "https://opentdb.com/api.php?amount=10&category=9&difficulty=hard&type=multiple"
+easy_url = "https://opentdb.com/api.php?amount=15&category=9&difficulty=easy&type=multiple"
+med_url = "https://opentdb.com/api.php?amount=15&category=9&difficulty=medium&type=multiple"
+hard_url = "https://opentdb.com/api.php?amount=15&category=9&difficulty=hard&type=multiple"
 
 easy_response = requests.get(easy_url) 
 med_response = requests.get(med_url)
@@ -115,8 +115,8 @@ def millionaire(rank,question,incorrect_answers,correct_answer):
     print("CORRECT! If you walk away now, you'll leave with ", money[rank], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank], ".")
     level = level + 1
   else:
-    print("the correct answer was", correct_answer)
     print("Ohh, too bad! You're leaving today with ", loser_money[rank])
+    print(f"The correct answer was {correct_answer}. Better Luck next time!")
     level = 17
     # breakpoint()
 
@@ -135,10 +135,8 @@ while level <= 16:
       print("CONGRATS")
       break
     print("-------------------------------------")
-    progress = 0
+    quest_num = random.choice(quest_pool)
     # Currently, the loop is eliminating questions from multiple pools. Needs to be fixed.
-    millionaire(level,difficulty["results"][progress]["question"],difficulty["results"][progress]["incorrect_answers"],difficulty["results"][progress]["correct_answer"])
-    progress = progress + 1
-    if progress > 4:
-      progres = 0
+    millionaire(level,difficulty["results"][quest_num]["question"],difficulty["results"][quest_num]["incorrect_answers"],difficulty["results"][quest_num]["correct_answer"])
+    quest_pool.remove(quest_num)
     
