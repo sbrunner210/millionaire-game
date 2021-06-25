@@ -8,7 +8,6 @@ import html
 
 # Global Variables
 level = 1
-progress = 0
 money = ['$0','$100','$200','$300','$500','$1,000','$2,000','$4,000','$8,000','$16,000','$32,000','$64,000','$125,000','$250,000','$500,000','$1,000,000','$1,000,000']
 loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,000', '$1,000', '$32,000', '$32,000', '$32,000', '$32,000', '$32,000','$32,000']
 
@@ -84,7 +83,7 @@ while level <= 16:
       print("CONGRATS")
       break
     print("-------------------------------------")
-    millionaire(level,difficulty["results"][progress]["question"],difficulty["results"][progress]["incorrect_answers"],difficulty["results"][progress]["correct_answer"])
-    progress = progress + 1
-    if progress > 4:
-      progress = 0
+    millionaire(level,
+                difficulty["results"][level % 5]["question"],
+                difficulty["results"][level % 5]["incorrect_answers"],
+                difficulty["results"][level % 5]["correct_answer"])
