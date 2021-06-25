@@ -8,6 +8,7 @@ import html
 
 # Global Variables
 level = 1
+lifelines = 3
 money = ['$0','$100','$200','$300','$500','$1,000','$2,000','$4,000','$8,000','$16,000','$32,000','$64,000','$125,000','$250,000','$500,000','$1,000,000','$1,000,000']
 loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,000', '$1,000', '$32,000', '$32,000', '$32,000', '$32,000', '$32,000','$32,000']
 
@@ -37,6 +38,7 @@ hard_questions = json.loads(hard_response.text)
 def millionaire(rank,question,incorrect_answers,correct_answer):
   #print(f"This is the level {level} question. For" {money[level-1]})
   global level
+  global lifelines
   global money
   global loser_money
   print('Question#', rank, "for", money[rank]) #ML edited original code to include the amount of money it is for.
@@ -45,28 +47,52 @@ def millionaire(rank,question,incorrect_answers,correct_answer):
   all_answers = copy.copy(incorrect_answers)
   all_answers.append(correct_answer)
   random.shuffle(all_answers)
-  index = all_answers.index(correct_answer)
+  correct_index = all_answers.index(correct_answer)
   # breakpoint()
   print(html.unescape(f"A. {all_answers[0]}"))
   print(html.unescape(f"B. {all_answers[1]}"))
   print(html.unescape(f"C. {all_answers[2]}"))
   print(html.unescape(f"D. {all_answers[3]}"))
   # print(f"The correct answer is {correct_answer}.")
-  answer = input("What is your answer? [Enter your answer or type 'walk' to end the game] \n")
+  answer = input("What is your answer? [Enter your answer, type 'lifeline' for help, or type 'walk' to end the game] \n")
   if answer.lower().strip() == "walk":
     print("You are walking away with ", money[rank-1],". Thank you for playing! Enjoy your fake money!")
     level = 17
-  elif answer == "lifeline":
-    help = input("Which lifeline would you like to use?")
-    print(help)
-  elif answers_dict[answer.lower().strip()] == index:
+  elif answer.lower().strip() == "lifeline":
+    if lifelines == 0:
+      print("Sorry, you have no lifelines left.")
+    else:
+      lifelines = lifelines - 1
+      keep_index = random.randint(0,2)
+      incorrect_answers.pop(keep_index)
+      for removed_answers in incorrect_answers:
+        remove_index = all_answers.index(removed_answers)
+        all_answers[remove_index] = "..."
+    print(html.unescape(f"A. {all_answers[0]}"))
+    print(html.unescape(f"B. {all_answers[1]}"))
+    print(html.unescape(f"C. {all_answers[2]}"))
+    print(html.unescape(f"D. {all_answers[3]}"))
+    answer = input("What is your answer? [Enter your answer or type 'walk' to end the game] \n")
+    if answer.lower().strip() == "walk":
+      print("You are walking away with ", money[rank-1],". Thank you for playing! Enjoy your fake money!")
+      level = 17
+    elif answers_dict[answer.lower().strip()] == correct_index:
+      print("CORRECT! If you walk away now, you'll leave with ", money[rank], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank], ".")
+      level = level + 1
+    elif answer in ["a", "b", "c", "d"]:
+      print("Ohh, too bad! You're leaving today with ", loser_money[rank-1])
+      print(f"The correct answer was {correct_answer}. Better Luck next time!")
+      level = 17
+  elif answers_dict[answer.lower().strip()] == correct_index:
     print("CORRECT! If you walk away now, you'll leave with ", money[rank], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank], ".")
     level = level + 1
-  else:
+  elif answer in ["a", "b", "c", "d"]:
     print("Ohh, too bad! You're leaving today with ", loser_money[rank-1])
     print(f"The correct answer was {correct_answer}. Better Luck next time!")
     level = 17
-    # breakpoint()
+  else:
+    print("OOPS! Invalid input. Please try again.")
+
 
 while level <= 16:
     print("-------------------------------------")
