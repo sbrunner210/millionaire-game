@@ -1,7 +1,5 @@
 # This is the script for the Silver Snake's "Who Wants to be a Millionaire" Game
 
-# Testing the while loop for the questions.
-
 import random
 import copy
 import json
@@ -23,9 +21,9 @@ answers_dict = {
 }
 
 # Importing questions from API
-easy_url = "https://opentdb.com/api.php?amount=15&category=9&difficulty=easy&type=multiple"
-med_url = "https://opentdb.com/api.php?amount=15&category=9&difficulty=medium&type=multiple"
-hard_url = "https://opentdb.com/api.php?amount=15&category=9&difficulty=hard&type=multiple"
+easy_url = "https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple"
+med_url = "https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple"
+hard_url = "https://opentdb.com/api.php?amount=5&category=9&difficulty=hard&type=multiple"
 
 easy_response = requests.get(easy_url) 
 med_response = requests.get(med_url)
@@ -50,10 +48,10 @@ def millionaire(rank,question,incorrect_answers,correct_answer):
   random.shuffle(all_answers)
   index = all_answers.index(correct_answer)
   # breakpoint()
-  print(f"A. {all_answers[0]}")
-  print(f"B. {all_answers[1]}")
-  print(f"C. {all_answers[2]}")
-  print(f"D. {all_answers[3]}")
+  print(html.unescape(f"A. {all_answers[0]}"))
+  print(html.unescape(f"B. {all_answers[1]}"))
+  print(html.unescape(f"C. {all_answers[2]}"))
+  print(html.unescape(f"D. {all_answers[3]}"))
   # print(f"The correct answer is {correct_answer}.")
   answer = input("What is your answer? [Enter your answer or type 'walk' to end the game] \n")
   if answer.lower().strip() == "walk":
