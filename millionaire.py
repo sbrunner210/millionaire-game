@@ -1,7 +1,6 @@
 # This is the script for the Silver Snake's "Who Wants to be a Millionaire" Game
 
 # Testing the while loop for the questions.
-#test_list = list(range(1,19))
 
 import random
 import copy
@@ -11,6 +10,7 @@ import html
 
 # Global Variables
 level = 1
+progress = 0
 money = ['$0','$100','$200','$300','$500','$1,000','$2,000','$4,000','$8,000','$16,000','$32,000','$64,000','$125,000','$250,000','$500,000','$1,000,000','$1,000,000']
 loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,000', '$1,000', '$32,000', '$32,000', '$32,000', '$32,000', '$32,000','$32,000']
 
@@ -34,10 +34,6 @@ hard_response = requests.get(hard_url)
 easy_questions = json.loads(easy_response.text)
 med_questions = json.loads(med_response.text)
 hard_questions = json.loads(hard_response.text)
-
-# Variables to randomly select a question
-quest_length = len(easy_questions["results"])
-quest_pool = [*range(quest_length)]
 
 # This is a sample function that we may be able to use to easily ask questions.
 # Rank is the input variable for the funciton. Level is the variable.
@@ -70,7 +66,7 @@ def millionaire(rank,question,incorrect_answers,correct_answer):
     print("CORRECT! If you walk away now, you'll leave with ", money[rank], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank], ".")
     level = level + 1
   else:
-    print("Ohh, too bad! You're leaving today with ", loser_money[rank])
+    print("Ohh, too bad! You're leaving today with ", loser_money[rank-1])
     print(f"The correct answer was {correct_answer}. Better Luck next time!")
     level = 17
     # breakpoint()
@@ -90,7 +86,7 @@ while level <= 16:
       print("CONGRATS")
       break
     print("-------------------------------------")
-    quest_num = random.choice(quest_pool)
-    millionaire(level,difficulty["results"][quest_num]["question"],difficulty["results"][quest_num]["incorrect_answers"],difficulty["results"][quest_num]["correct_answer"])
-    quest_pool.remove(quest_num)
-    
+    millionaire(level,difficulty["results"][progress]["question"],difficulty["results"][progress]["incorrect_answers"],difficulty["results"][progress]["correct_answer"])
+    progress = progress + 1
+    if progress > 4:
+      progress = 0
