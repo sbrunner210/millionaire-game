@@ -11,6 +11,7 @@ level = 1
 lifelines = 3
 money = ['$0','$100','$200','$300','$500','$1,000','$2,000','$4,000','$8,000','$16,000','$32,000','$64,000','$125,000','$250,000','$500,000','$1,000,000','$1,000,000']
 loser_money = ['$0', '$0', '$0', '$0', '$0', '$1,000', '$1,000', '$1,000', '$1,000', '$1,000', '$32,000', '$32,000', '$32,000', '$32,000', '$32,000','$32,000']
+category_list = [*range(9,33)]
 
 # Answers dictionary to determine the correct answer.
 answers_dict = {
@@ -20,10 +21,18 @@ answers_dict = {
   "d":3
 }
 
+while True:
+  category = input("Please enter the number for one of the following categories: \nGeneral Knowledge	9 \nEntertainment:Books	10 \nEntertainment:Film	11 \nEntertainment:Music	12 \nEntertainment:Musicals & Theatres	13 \nEntertainment:Television	14 \nEntertainment:Video Games	15 \nEntertainment:Board Games	16 \nScience & Nature	17 \nScience:Computers	18 \nScience:Mathematics	19 \nMythology	20 \nSports	21 \nGeography	22 \nHistory	23 \nPolitics	24 \nArt	25 \nCelebrities	26 \nAnimals	27 \nVehicles	28 \nEntertainment:Comics	29 \nScience:Gadgets	30 \nEntertainment:Japanese Anime & Manga	31 \nEntertainment:Cartoon & Animations	32 \n")
+  print(f"You have selected category {category}")
+  if int(category) not in category_list:
+    print("OOPS!, Invalid input. Try again.")
+  else:
+    break
+
 # Importing questions from API
-easy_url = "https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple"
-med_url = "https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple"
-hard_url = "https://opentdb.com/api.php?amount=5&category=9&difficulty=hard&type=multiple"
+easy_url = f"https://opentdb.com/api.php?amount=5&category={category}&difficulty=easy&type=multiple"
+med_url = f"https://opentdb.com/api.php?amount=5&category={category}&difficulty=medium&type=multiple"
+hard_url = f"https://opentdb.com/api.php?amount=5&category={category}&difficulty=hard&type=multiple"
 
 easy_response = requests.get(easy_url) 
 med_response = requests.get(med_url)
@@ -78,8 +87,7 @@ def millionaire(rank,question,incorrect_answers,correct_answer):
       print(html.unescape(f"D. {all_answers[3]}"))
       answer = input("What is your answer? [Enter your answer or type 'walk' to end the game] \n").lower().strip()
       if answer not in ["a", "b", "c", "d", "walk", "lifeline"]:
-        print("OOPS! Invalid input")
-          
+        print("OOPS! Invalid input")          
       else: 
         if answer == "walk":
           print("You are walking away with ", money[rank-1],". Thank you for playing! Enjoy your fake money!")
