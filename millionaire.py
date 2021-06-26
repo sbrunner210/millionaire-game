@@ -54,45 +54,50 @@ def millionaire(rank,question,incorrect_answers,correct_answer):
   print(html.unescape(f"C. {all_answers[2]}"))
   print(html.unescape(f"D. {all_answers[3]}"))
   # print(f"The correct answer is {correct_answer}.")
-  answer = input("What is your answer? [Enter your answer, type 'lifeline' for help, or type 'walk' to end the game] \n")
-  if answer.lower().strip() == "walk":
-    print("You are walking away with ", money[rank-1],". Thank you for playing! Enjoy your fake money!")
-    level = 17
-  elif answer.lower().strip() == "lifeline":
-    if lifelines == 0:
-      print("Sorry, you have no lifelines left.")
-    else:
-      lifelines = lifelines - 1
-      keep_index = random.randint(0,2)
-      incorrect_answers.pop(keep_index)
-      for removed_answers in incorrect_answers:
-        remove_index = all_answers.index(removed_answers)
-        all_answers[remove_index] = "..."
-    print(html.unescape(f"A. {all_answers[0]}"))
-    print(html.unescape(f"B. {all_answers[1]}"))
-    print(html.unescape(f"C. {all_answers[2]}"))
-    print(html.unescape(f"D. {all_answers[3]}"))
-    answer = input("What is your answer? [Enter your answer or type 'walk' to end the game] \n")
-    if answer.lower().strip() == "walk":
+  answer = input("What is your answer? [Enter your answer, type 'lifeline' for help, or type 'walk' to end the game] \n").lower().strip()
+  if answer not in ["a", "b", "c", "d", "walk", "lifeline"]:
+    print("OOPS! Invalid input")    
+  else:  
+    if answer == "walk":
       print("You are walking away with ", money[rank-1],". Thank you for playing! Enjoy your fake money!")
       level = 17
-    elif answers_dict[answer.lower().strip()] == correct_index:
+    elif answer == "lifeline":
+      if lifelines == 0:
+        print("Sorry, you have no lifelines left.")
+      else:
+        lifelines = lifelines - 1
+        keep_index = random.randint(0,2)
+        # incorrect_answers.pop(keep_index)
+        for removed_answers in incorrect_answers:
+          if incorrect_answers.index(removed_answers) != keep_index:
+            remove_index = all_answers.index(removed_answers)
+            all_answers[remove_index] = "..."
+      print(html.unescape(f"A. {all_answers[0]}"))
+      print(html.unescape(f"B. {all_answers[1]}"))
+      print(html.unescape(f"C. {all_answers[2]}"))
+      print(html.unescape(f"D. {all_answers[3]}"))
+      answer = input("What is your answer? [Enter your answer or type 'walk' to end the game] \n").lower().strip()
+      if answer not in ["a", "b", "c", "d", "walk", "lifeline"]:
+        print("OOPS! Invalid input")
+          
+      else: 
+        if answer == "walk":
+          print("You are walking away with ", money[rank-1],". Thank you for playing! Enjoy your fake money!")
+          level = 17
+        elif answers_dict[answer] == correct_index:
+          print("CORRECT! If you walk away now, you'll leave with ", money[rank], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank], ".")
+          level = level + 1
+        elif answer in ["a", "b", "c", "d"]:
+          print("Ohh, too bad! You're leaving today with ", loser_money[rank-1])
+          print(f"The correct answer was {correct_answer}. Better Luck next time!")
+          level = 17
+    elif answers_dict[answer] == correct_index:
       print("CORRECT! If you walk away now, you'll leave with ", money[rank], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank], ".")
       level = level + 1
     elif answer in ["a", "b", "c", "d"]:
       print("Ohh, too bad! You're leaving today with ", loser_money[rank-1])
       print(f"The correct answer was {correct_answer}. Better Luck next time!")
       level = 17
-  elif answers_dict[answer.lower().strip()] == correct_index:
-    print("CORRECT! If you walk away now, you'll leave with ", money[rank], " but if you answer the next question incorrectly, you'll leave with ", loser_money[rank], ".")
-    level = level + 1
-  elif answer in ["a", "b", "c", "d"]:
-    print("Ohh, too bad! You're leaving today with ", loser_money[rank-1])
-    print(f"The correct answer was {correct_answer}. Better Luck next time!")
-    level = 17
-  else:
-    print("OOPS! Invalid input. Please try again.")
-
 
 while level <= 16:
     print("-------------------------------------")
