@@ -31,6 +31,7 @@ print("But don't worry! We're not total monsters. There are checkpoints along th
 print("The questions increase in difficulty as you progress but you can make use of a 50/50 lifeline to help you out")
 print("This will remove 2 incorrect answers.\nType Lifeline to access")
 print("One more thing, when answering, please use either A, B, C or D or you will be disqualified!")
+print("===================================================================\n")
 
 while True:
   category = input("Please enter the number for one of the following categories: \nGeneral Knowledge	9 \nEntertainment:Books	10 \nEntertainment:Film	11 \nEntertainment:Music	12 \nEntertainment:Musicals & Theatres	13 \nEntertainment:Television	14 \nEntertainment:Video Games	15 \nEntertainment:Board Games	16 \nScience & Nature	17 \nScience:Computers	18 \nScience:Mathematics	19 \nMythology	20 \nSports	21 \nGeography	22 \nHistory	23 \nPolitics	24 \nArt	25 \nCelebrities	26 \nAnimals	27 \nVehicles	28 \nEntertainment:Comics	29 \nScience:Gadgets	30 \nEntertainment:Japanese Anime & Manga	31 \nEntertainment:Cartoon & Animations	32 \n")
