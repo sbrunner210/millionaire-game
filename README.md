@@ -36,7 +36,7 @@ After activating the virtual environment, install package dependencies (see the 
 pip install -r requirements.txt
 ```
 
-> NOTE: As of the submission of this project (6/29/2021), this app is able to run in the base environment. However, this steps are still recommended for future updates.
+> NOTE: As of the submission of this project (6/29/2021), this app is able to run in the base environment. However, these steps are still recommended for future updates.
 
 ## Testing
 Running tests:
@@ -59,4 +59,4 @@ The user is given instructions in how to play the game and answer the questions 
 
 > NOTE: if you see an error like "ModuleNotFoundError: No module named '...'", it's because the given package isn't installed, so run the `pip` command above to ensure that package has been installed into the virtual environment.
 
-## [License](/LICENSE.md)
+## [License](/LICENSE)
