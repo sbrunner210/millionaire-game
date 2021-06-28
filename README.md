@@ -51,7 +51,7 @@ CI=true pytest
 Run the app:
 
 ```py
-millionaire.py
+app.millionaire.py
 ```
 The user is given instructions in how to play the game and answer the questions given. First, the user must select a category from one of the options presented. Once a category is selected, the app then begins to present questions to the user. The user must answer with the letter corresponding to the correct choice. If the user needs assitance, the user can type "lifeline" for help. If the user wants to end the game, the user can type "walk" to walk away with their winnings.
 
