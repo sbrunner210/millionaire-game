@@ -36,8 +36,6 @@ After activating the virtual environment, install package dependencies (see the 
 pip install -r requirements.txt
 ```
 
-> NOTE: As of the submission of this project (6/29/2021), this app is able to run in the base environment. However, these steps are still recommended for future updates.
-
 ## Testing
 Running tests:
 
