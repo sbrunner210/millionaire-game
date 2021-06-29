@@ -21,14 +21,14 @@ hard_questions = json.loads(hard_response.text)
 # Running Tests
 def test_millionaire():
   assert millionaire(level,
-                easy_questions["results"][level % 5]["question"],
-                easy_questions["results"][level % 5]["incorrect_answers"],
-                easy_questions["results"][level % 5]["correct_answer"])
+                ["easy"]["results"][level % 5]["question"],
+                ["easy"]["results"][level % 5]["incorrect_answers"],
+                ["easy"]["results"][level % 5]["correct_answer"])
   assert millionaire(level,
-                med_questions["results"][level % 5]["question"],
-                med_questions["results"][level % 5]["incorrect_answers"],
-                med_questions["results"][level % 5]["correct_answer"])
+                ["medium"]["results"][level % 5]["question"],
+                ["medium"]["results"][level % 5]["incorrect_answers"],
+                ["medium"]["results"][level % 5]["correct_answer"])
   assert millionaire(level,
-                hard_questions["results"][level % 5]["question"],
-                hard_questions["results"][level % 5]["incorrect_answers"],
-                hard_questions["results"][level % 5]["correct_answer"])
+                ["hard"]["results"][level % 5]["question"],
+                ["hard"]["results"][level % 5]["incorrect_answers"],
+                ["hard"]["results"][level % 5]["correct_answer"])
